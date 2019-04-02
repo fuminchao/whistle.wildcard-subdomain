@@ -7,7 +7,7 @@ function resolveName(tokens) {
   const url = tokens.join('.');
   return cached[url] = cached[url] || new Promise((resolve, reject) => {
 
-    if (tokens.length === 0) {
+    if (tokens.length === 1) {
       reject();
     }
 
@@ -25,9 +25,8 @@ function resolveName(tokens) {
 exports.rulesServer = (server, options) => {
 
   server.on('request', (req, res) => {
-    res.on('error', function() {});
 
-    //console.log(req.originalReq.ruleValue);
+    res.on('error', function() {});
 
     resolveName(req.headers['host'].split('.')).then(([name, ip]) => {
 
