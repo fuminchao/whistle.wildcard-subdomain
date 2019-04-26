@@ -7,7 +7,7 @@ function resolveName(tokens) {
   const url = tokens.join('.');
   return cached[url] = cached[url] || new Promise((resolve, reject) => {
 
-    if (tokens.length === 1) {
+    if (tokens.length === 0) {
       reject();
     }
 
