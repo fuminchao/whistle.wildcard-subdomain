@@ -4,7 +4,7 @@ const {URL} = require('url');
 const cached = {};
 
 function resolveName(tokens) {
-  console.log(tokens);
+
   const url = tokens.join('.');
   return cached[url] = cached[url] || new Promise((resolve, reject) => {
 
