@@ -1,9 +1,10 @@
 const dns = require('dns');
+const {URL} = require('url');
 
 const cached = {};
 
 function resolveName(tokens) {
-
+  console.log(tokens);
   const url = tokens.join('.');
   return cached[url] = cached[url] || new Promise((resolve, reject) => {
 
@@ -28,7 +29,7 @@ exports.rulesServer = (server, options) => {
 
     res.on('error', function() {});
 
-    resolveName(req.headers['host'].split('.')).then(([name, ip]) => {
+    resolveName(new URL('http://' + req.headers['host']).hostname.split('.')).then(([name, ip]) => {
 
       res.end(JSON.stringify({
         rules: '**.' + name + ' host://' + ip
